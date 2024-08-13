@@ -43,7 +43,8 @@ $ cat activity.log | jq
 
 ## Requirements
 
-* Ruby 3.1+
+* macOS or Linux
+* Ruby >= 3.1
 
 ## Installing
 
