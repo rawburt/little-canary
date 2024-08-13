@@ -287,6 +287,14 @@ class TestLittleCanary < Minitest::Test
   end
 
   def test_net_tcp_no_connection
+    # supporting ruby 3.1 and 3.3
+    host_error_klass =
+      if defined?(Socket::ResolutionError)
+        Socket::ResolutionError
+      else
+        SocketError
+      end
+
     # bad host
     begin
       LittleCanary::Runner.new(
@@ -297,8 +305,16 @@ class TestLittleCanary < Minitest::Test
         TEST_LOG_FILE
       ).run!
       assert false
-    rescue SocketError
+    rescue host_error_klass
     end
+
+    # supporting ruby 3.1 and 3.3
+    port_error_klass =
+      if defined?(Socket::ResolutionError)
+        Socket::ResolutionError
+      else
+        Errno::ECONNREFUSED
+      end
 
     # bad port
     begin
@@ -310,7 +326,7 @@ class TestLittleCanary < Minitest::Test
         TEST_LOG_FILE
       ).run!
       assert false
-    rescue Errno::ECONNREFUSED
+    rescue port_error_klass
     end
 
     assert last_activity.nil?
