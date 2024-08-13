@@ -63,7 +63,7 @@ class TestLittleCanary < Minitest::Test
 
     assert last_activity.nil?
     assert !usage.nil?
-    assert_equal "usage: lc file modify [filename] [contents]", usage
+    assert_equal "usage: lc file modify [filename] [contents ...]", usage
 
     usage = LittleCanary::Runner.new(
       "little-canary",
@@ -393,5 +393,19 @@ class TestLittleCanary < Minitest::Test
 
     assert_equal 4, activity_log.size
     assert_equal ["file", "file", "file", "proc"], activity_log.map { |log| log[:type] }
+  end
+
+  def test_version
+    result = LittleCanary::Runner.new(
+      "lc",
+      ["version"],
+      123,
+      "rawburtz",
+      TEST_LOG_FILE
+    ).run!
+
+    assert_equal LittleCanary::VERSION, result
+
+    assert last_activity.nil?
   end
 end

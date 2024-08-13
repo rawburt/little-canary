@@ -2,6 +2,6 @@
 
 require "little_canary"
 
-usage = LittleCanary::Runner.new($0, ARGV, $$, ENV["USER"], ENV["LC_LOG_FILE"]).run!
+result = LittleCanary::Runner.new($0, ARGV, $$, ENV["USER"], ENV["LC_LOG_FILE"]).run!
 
-puts usage if usage
+puts result if result

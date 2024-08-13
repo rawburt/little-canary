@@ -78,7 +78,7 @@ module LittleCanary
           return usage("file [create|modify|delete] ...")
         end
       when VERSION
-        puts LittleCanary::VERSION
+        return LittleCanary::VERSION
       else
         return usage("[#{ACTIONS.join("|")}] ...")
       end
