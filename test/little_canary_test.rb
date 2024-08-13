@@ -297,7 +297,7 @@ class TestLittleCanary < Minitest::Test
         TEST_LOG_FILE
       ).run!
       assert false
-    rescue Socket::ResolutionError
+    rescue SocketError
     end
 
     # bad port
@@ -310,7 +310,7 @@ class TestLittleCanary < Minitest::Test
         TEST_LOG_FILE
       ).run!
       assert false
-    rescue Socket::ResolutionError
+    rescue Errno::ECONNREFUSED
     end
 
     assert last_activity.nil?

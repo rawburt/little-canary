@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.executables   = ["lc"]
   s.license       = "MIT"
 
-  s.required_ruby_version = ">= 3.3"
+  s.required_ruby_version = ">= 3.1"
 
   s.add_development_dependency "bundler", "~> 2.5"
   s.add_development_dependency "rake", "~> 13.2"
