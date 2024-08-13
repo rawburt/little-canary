@@ -66,25 +66,42 @@ usage: lc [proc|file|net|version]
 
 ### Proc
 
+The `proc` subcommand allows the user to spawn a process. All argument after the `proc` argument will be used to launch a new process.
+
 ```sh
 usage: lc proc [command ...]
 ```
 
-The `proc` subcommand allows the user to launch a process. For example, to run `ls -la`:
+Example:
 
 ```sh
 lc proc ls -la
 ```
 
+Activity log;
+
+```json
+{
+  "timestamp": "2024-08-13T15:37:26Z",
+  "username": "rawburt",
+  "proc_name": "/usr/local/lib/ruby/gems/3.3.0/bin/lc",
+  "proc_command": "proc ls -la",
+  "pid": 18514,
+  "type": "proc"
+}
+```
+
 ### File
+
+The `file` subcommand allows the user to create, modify, and delete files.
 
 ```sh
 usage: lc file [create|modify|delete] ...
 ```
 
-The `file` subcommand allows the user to create, modify, and delete files.
-
 #### File Create
+
+The `file create` subcommand will make a new file. It is an error to try to make a file when it already exists.
 
 ```sh
 usage: lc file create [filename]
@@ -98,7 +115,24 @@ $ ls
 activity.log	hello.txt
 ```
 
+Activity log:
+
+```sh
+{
+  "timestamp": "2024-08-13T15:38:00Z",
+  "username": "rawburt",
+  "proc_name": "/usr/local/lib/ruby/gems/3.3.0/bin/lc",
+  "proc_command": "file create hello.txt",
+  "pid": 18565,
+  "type": "file",
+  "path": "/Users/rawburt/Documents/Code/little-canary/hello.txt",
+  "activity": "create"
+}
+```
+
 #### File Modify
+
+The `file modify` subcommand will append content to the specified file. It is an error to try to append to a file that does not exist.
 
 ```sh
 usage: lc file modify [filename] [contents ...]
@@ -113,7 +147,24 @@ $ cat hello.txt
 hi there friends
 ```
 
+Activity log:
+
+```json
+{
+  "timestamp": "2024-08-13T15:38:22Z",
+  "username": "rawburt",
+  "proc_name": "/usr/local/lib/ruby/gems/3.3.0/bin/lc",
+  "proc_command": "file modify hello.txt hi there friends",
+  "pid": 18612,
+  "type": "file",
+  "path": "/Users/rawburt/Documents/Code/little-canary/hello.txt",
+  "activity": "modify"
+}
+```
+
 #### File Delete
+
+The `file delete` subcommand will delete a file. It is an error to try to delete a file that does not exist.
 
 ```sh
 usage: lc file delete [filename]
@@ -129,15 +180,32 @@ $ ls
 activity.log
 ```
 
+Activity log:
+
+```json
+{
+  "timestamp": "2024-08-13T15:38:45Z",
+  "username": "rawburt",
+  "proc_name": "/usr/local/lib/ruby/gems/3.3.0/bin/lc",
+  "proc_command": "file delete hello.txt",
+  "pid": 18656,
+  "type": "file",
+  "path": "/Users/rawburt/Documents/Code/little-canary/hello.txt",
+  "activity": "delete"
+}
+```
+
 ### Net
+
+The `net` subcommand allows the user to send data via TCP or UDP.
 
 ```sh
 usage: lc net [tcp|udp] [host] [port] [data ...]
 ```
 
-The `net` subcommand allows the user to send data via TCP or UDP.
-
 #### Net TCP
+
+The `net tcp` subcommand allows the user to send data using TCP. The data can be any format acceptable by your shell. It is an error to try to send data to a host and port that is not listening for connections.
 
 ```sh
 usage: lc net tcp [host] [port] [data ...]
@@ -149,7 +217,26 @@ Example:
 lc net tcp google.com 80 hi
 ```
 
+Activity log:
+
+```json
+{
+  "timestamp": "2024-08-13T15:39:10Z",
+  "username": "rawburt",
+  "proc_name": "/usr/local/lib/ruby/gems/3.3.0/bin/lc",
+  "proc_command": "net tcp google.com 80 hi",
+  "pid": 18699,
+  "type": "net",
+  "data_size": 2,
+  "protocol": "tcp",
+  "destination": "google.com:80",
+  "source": "192.168.2.134:55866"
+}
+```
+
 #### Net UDP
+
+The `net tcp` subcommand allows the user to send data using UDP. The data can be any format acceptable by your shell.
 
 ```sh
 usage: lc net udp [host] [port] [data ...]
@@ -158,7 +245,24 @@ usage: lc net udp [host] [port] [data ...]
 Example:
 
 ```sh
-lc net tcp localhost 9090 testing 1 2 3
+lc net udp localhost 9090 testing 1 2 3
+```
+
+Activity log:
+
+```json
+{
+  "timestamp": "2024-08-13T15:39:47Z",
+  "username": "rawburt",
+  "proc_name": "/usr/local/lib/ruby/gems/3.3.0/bin/lc",
+  "proc_command": "net udp localhost 9090 testing 1 2 3",
+  "pid": 18763,
+  "type": "net",
+  "data_size": 13,
+  "protocol": "udp",
+  "destination": "localhost:9090",
+  "source": "127.0.0.1:53549"
+}
 ```
 
 ## Development
