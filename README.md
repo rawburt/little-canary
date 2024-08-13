@@ -119,7 +119,7 @@ activity.log	hello.txt
 
 Activity log:
 
-```sh
+```json
 {
   "timestamp": "2024-08-13T15:38:00Z",
   "username": "rawburt",
