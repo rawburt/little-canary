@@ -275,13 +275,15 @@ class TestLittleCanary < Minitest::Test
     activity = last_activity
 
     assert !activity[:timestamp].nil?
-    assert !activity[:source].nil?
+    assert !activity[:source_host].nil?
+    assert !activity[:source_port].nil?
     assert_equal "net", activity[:type]
     assert_equal "rawburtz", activity[:username]
     assert_equal "lc", activity[:proc_name]
     assert_equal "net tcp localhost 9988 hello there", activity[:proc_command]
     assert_equal "tcp", activity[:protocol]
-    assert_equal "localhost:9988", activity[:destination]
+    assert_equal "localhost", activity[:destination_host]
+    assert_equal "9988", activity[:destination_port]
     assert_equal 11, activity[:data_size]
     assert_equal 677, activity[:pid]
   end
@@ -333,7 +335,7 @@ class TestLittleCanary < Minitest::Test
   end
 
   def test_net_udp_with_data
-    tcp_server = Thread.new do
+    udp_server = Thread.new do
       Timeout::timeout(3) do
         received = nil
         Socket.udp_server_loop(9988) do |msg, _msg_src|
@@ -356,18 +358,20 @@ class TestLittleCanary < Minitest::Test
     ).run!
 
     # `value` calls `join`
-    assert_equal "ab cd", tcp_server.value
+    assert_equal "ab cd", udp_server.value
 
     activity = last_activity
 
     assert !activity[:timestamp].nil?
-    assert !activity[:source].nil?
+    assert !activity[:source_host].nil?
+    assert !activity[:source_port].nil?
     assert_equal "net", activity[:type]
     assert_equal "rawburtz", activity[:username]
     assert_equal "lc", activity[:proc_name]
     assert_equal "net udp localhost 9988 ab cd", activity[:proc_command]
     assert_equal "udp", activity[:protocol]
-    assert_equal "localhost:9988", activity[:destination]
+    assert_equal "localhost", activity[:destination_host]
+    assert_equal "9988", activity[:destination_port]
     assert_equal 5, activity[:data_size]
     assert_equal 677, activity[:pid]
   end

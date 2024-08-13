@@ -7,7 +7,7 @@ require "socket"
 require "pathname"
 
 module LittleCanary
-  VERSION = "0.0.13"
+  VERSION = "0.0.14"
 
   class FileNotFound < StandardError; end
 
@@ -114,15 +114,14 @@ module LittleCanary
         socket.print(data) if data
       end
 
-      destination = "#{host}:#{port}"
-      source = "#{source_host}:#{source_port}"
-
       log_activity(
         type: NET,
         data_size: data_size,
         protocol: TCP,
-        destination: destination,
-        source: source,
+        destination_host: host,
+        destination_port: port,
+        source_host: source_host,
+        source_port: source_port,
       )
     end
 
@@ -139,15 +138,14 @@ module LittleCanary
 
       socket.close
 
-      destination = "#{host}:#{port}"
-      source = "#{source_host}:#{source_port}"
-
       log_activity(
         type: NET,
         data_size: data_size,
         protocol: UDP,
-        destination: destination,
-        source: source,
+        destination_host: host,
+        destination_port: port,
+        source_host: source_host,
+        source_port: source_port,
       )
     end
 

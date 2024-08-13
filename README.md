@@ -5,38 +5,40 @@ Little Canary is a testing tool for Endpoint Detection and Response (EDR) agents
 ## Example
 
 ```sh
-$ lc net tcp google.com 80 hi
-$ lc file create bad.txt
-$ lc proc echo hi there
+$ lc net udp exploit.org 4242 zero cool is in
+$ lc file create hack.c
+$ lc proc cat /etc/passwd
 $ cat activity.log | jq
 {
-  "timestamp": "2024-08-13T03:17:32Z",
+  "timestamp": "2024-08-13T18:33:00Z",
   "username": "rawburt",
   "proc_name": "/usr/local/lib/ruby/gems/3.3.0/bin/lc",
-  "proc_command": "net tcp google.com 80 hi",
-  "pid": 14742,
+  "proc_command": "net udp exploit.org 4242 zero cool is in",
+  "pid": 21045,
   "type": "net",
-  "data_size": 2,
-  "protocol": "tcp",
-  "destination": "google.com:80",
-  "source": "192.168.2.134:54323"
+  "data_size": 15,
+  "protocol": "udp",
+  "destination_host": "exploit.org",
+  "destination_port": "4242",
+  "source_host": "192.168.2.134",
+  "source_port": 59481
 }
 {
-  "timestamp": "2024-08-13T03:17:47Z",
+  "timestamp": "2024-08-13T18:33:09Z",
   "username": "rawburt",
   "proc_name": "/usr/local/lib/ruby/gems/3.3.0/bin/lc",
-  "proc_command": "file create bad.txt",
-  "pid": 14760,
+  "proc_command": "file create hack.c",
+  "pid": 21070,
   "type": "file",
-  "path": "/Users/rawburt/Documents/Code/little-canary/bad.txt",
+  "path": "/Users/rawburt/Documents/Code/little-canary/hack.c",
   "activity": "create"
 }
 {
-  "timestamp": "2024-08-13T03:17:56Z",
+  "timestamp": "2024-08-13T18:33:16Z",
   "username": "rawburt",
   "proc_name": "/usr/local/lib/ruby/gems/3.3.0/bin/lc",
-  "proc_command": "proc echo hi there",
-  "pid": 14779,
+  "proc_command": "proc cat /etc/passwd",
+  "pid": 21096,
   "type": "proc"
 }
 ```
@@ -221,16 +223,18 @@ Activity log:
 
 ```json
 {
-  "timestamp": "2024-08-13T15:39:10Z",
+  "timestamp": "2024-08-13T18:34:19Z",
   "username": "rawburt",
   "proc_name": "/usr/local/lib/ruby/gems/3.3.0/bin/lc",
   "proc_command": "net tcp google.com 80 hi",
-  "pid": 18699,
+  "pid": 21199,
   "type": "net",
   "data_size": 2,
   "protocol": "tcp",
-  "destination": "google.com:80",
-  "source": "192.168.2.134:55866"
+  "destination_host": "google.com",
+  "destination_port": "80",
+  "source_host": "192.168.2.134",
+  "source_port": 56938
 }
 ```
 
@@ -252,16 +256,18 @@ Activity log:
 
 ```json
 {
-  "timestamp": "2024-08-13T15:39:47Z",
+  "timestamp": "2024-08-13T18:34:42Z",
   "username": "rawburt",
   "proc_name": "/usr/local/lib/ruby/gems/3.3.0/bin/lc",
   "proc_command": "net udp localhost 9090 testing 1 2 3",
-  "pid": 18763,
+  "pid": 21243,
   "type": "net",
   "data_size": 13,
   "protocol": "udp",
-  "destination": "localhost:9090",
-  "source": "127.0.0.1:53549"
+  "destination_host": "localhost",
+  "destination_port": "9090",
+  "source_host": "127.0.0.1",
+  "source_port": 51692
 }
 ```
 
