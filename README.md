@@ -55,13 +55,13 @@ bundle exec rake install:local
 
 ## Usage
 
+Little Canary's activity log is stored in a file named `activity.log` within the current directory. Users can specify a different log location by setting the `LC_LOG_FILE` environment variable.
+
 Basic usage:
 
 ```sh
 usage: lc [proc|file|net|version]
 ```
-
-If the `LC_LOG_FILE` environment variable is set, then Little Canary will use that file location for writing the activity log.
 
 ### Proc
 
