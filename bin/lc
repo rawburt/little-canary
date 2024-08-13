@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+require "little_canary"
+
+usage = LittleCanary::Runner.new($0, ARGV, $$, ENV["USER"], ENV["LC_LOG_FILE"]).run!
+
+puts usage if usage
