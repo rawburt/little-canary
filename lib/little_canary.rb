@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
+require "fileutils"
 require "json"
 require "time"
 require "socket"
 require "pathname"
 
 module LittleCanary
-  VERSION = "0.0.12"
+  VERSION = "0.0.13"
 
   class FileNotFound < StandardError; end
 
