@@ -1,6 +1,6 @@
 # Little Canary
 
-Little Canary is a testing tool for Endpoint Detection and Response (EDR) agents. It simulates real-world threats by generating various events, such as process creation, file modifications, and network activity. By comparing EDR agent telemetry to a detailed activity log, you can accurately assess your EDR solution's effectiveness.
+Little Canary is a tool for testing the accuracy of the telemetry emitted by an Endpoint Detection and Response (EDR) agent by allowing the user to trigger simulated threats like app launches, file changes, and network activity on-demand.
 
 ## Example
 
